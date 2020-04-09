@@ -9,6 +9,11 @@ const methodOverride = require('method-override')
 const app = express()
 const port = 3000
 
+// set database
+const db = require('./models')
+const Record = db.Record
+const User = db.User
+
 // set view engine
 app.engine('handlebars', exphbs({ defaultLayout: 'main' }))
 app.set('view engine', 'handlebars')
