@@ -13,17 +13,19 @@ const { authenticated } = require('../config/auth')
 //建立路由
 //瀏覽所有 record
 router.get('/', authenticated, (req, res) => {
-  res.send('瀏覽所有 record')
+  res.redirect('/')
 })
 
 //新增一筆 record 頁面
 router.get('/new', authenticated, (req, res) => {
-  res.send('新增一筆 record 頁面')
+  res.render('newedit')
 })
 
 //新增一筆 record
 router.post('/new', authenticated, (req, res) => {
-  res.send('新增一筆 record')
+  const Arecord = req.body
+  console.log(`record= `, Arecord)
+  res.send('新增一筆record')
 })
 
 //編輯一筆 record 頁面
