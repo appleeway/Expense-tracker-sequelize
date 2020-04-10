@@ -23,24 +23,69 @@ router.get('/new', authenticated, (req, res) => {
 
 //新增一筆 record
 router.post('/new', authenticated, (req, res) => {
-  const Arecord = req.body
-  console.log(`record= `, Arecord)
-  res.send('新增一筆record')
+  const { name, date, amount, category } = req.body
+  Record.create({
+    name,
+    date,
+    amount,
+    category,
+    UserId: req.user.id
+  })
+    .then((record) => { return res.redirect('/') })
+    .catch((error) => { return res.status(422).json(error) })
 })
 
 //編輯一筆 record 頁面
 router.get('/:id/edit', authenticated, (req, res) => {
-  res.send('編輯一筆 record 頁面')
+  User.findByPk(req.user.id)
+    .then((user) => {
+      if (!user) throw new Error("user not found")
+      return Record.findOne({
+        where: {
+          Id: req.params.id,
+          UserId: req.user.id
+        }
+      })
+    })
+    .then((record) => { return res.render('newedit', { record: record.get(), action: '修改' }) })
 })
 
 //編輯一筆 record
 router.put('/:id', authenticated, (req, res) => {
-  res.send('編輯一筆 record')
+  const { name, date, amount, category } = req.body
+  Record.findOne({
+    where: {
+      Id: req.params.id,
+      UserId: req.user.id
+    }
+  })
+    .then((record) => {
+      record.name = name
+      record.date = date
+      record.amount = amount
+      record.category = category
+
+      return record.save()
+    })
+    .then((record) => { return res.redirect('/') })
+    .catch((error) => { return res.status(422).json(error) })
 })
 
 //刪除一筆 record
 router.delete('/:id', authenticated, (req, res) => {
-  res.send('刪除一筆 record')
+  User.findByPk(req.user.id)
+    .then((user) => {
+      if (!user) throw new Error('user not found')
+
+      return Record.destroy({
+        where: {
+          UserId: req.user.id,
+          Id: req.params.id
+        }
+      })
+    })
+    .then((record) => { return res.redirect('/') })
+    .catch((error) => { return res.status(422).json(error) })
 })
 
 module.exports = router

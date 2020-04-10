@@ -2,6 +2,7 @@
 // require modules in this project
 const express = require('express')
 const exphbs = require('express-handlebars')
+require('./handlebars_helper')
 const bodyParser = require('body-parser')
 const methodOverride = require('method-override')
 const session = require('express-session')
