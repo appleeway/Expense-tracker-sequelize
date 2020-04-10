@@ -2,34 +2,42 @@
 const express = require('express')
 const router = express.Router()
 
+//載入 database
+const db = require('../models')
+const User = db.User
+const Record = db.Record
+
+// 載入 auth middleware
+const { authenticated } = require('../config/auth')
+
 //建立路由
 //瀏覽所有 record
-router.get('/', (req, res) => {
+router.get('/', authenticated, (req, res) => {
   res.send('瀏覽所有 record')
 })
 
 //新增一筆 record 頁面
-router.get('/new', (req, res) => {
+router.get('/new', authenticated, (req, res) => {
   res.send('新增一筆 record 頁面')
 })
 
 //新增一筆 record
-router.post('/new', (req, res) => {
+router.post('/new', authenticated, (req, res) => {
   res.send('新增一筆 record')
 })
 
 //編輯一筆 record 頁面
-router.get('/:id/edit', (req, res) => {
+router.get('/:id/edit', authenticated, (req, res) => {
   res.send('編輯一筆 record 頁面')
 })
 
 //編輯一筆 record
-router.put('/:id', (req, res) => {
+router.put('/:id', authenticated, (req, res) => {
   res.send('編輯一筆 record')
 })
 
 //刪除一筆 record
-router.delete('/:id', (req, res) => {
+router.delete('/:id', authenticated, (req, res) => {
   res.send('刪除一筆 record')
 })
 
