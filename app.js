@@ -12,6 +12,11 @@ const passport = require('passport')
 const app = express()
 const port = 3000
 
+//判別開發環境
+if (process.env.NODE_ENV !== 'production') {
+  require('dotenv').config()
+}
+
 // set database
 const db = require('./models')
 const Record = db.Record
@@ -45,6 +50,7 @@ app.use((req, res, next) => {
 app.use('/', require('./routes/home.js'))
 app.use('/users', require('./routes/user.js'))
 app.use('/records', require('./routes/record.js'))
+app.use('/auth', require('./routes/auths'))
 
 
 // listening
