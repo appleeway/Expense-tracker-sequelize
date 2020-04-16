@@ -7,6 +7,7 @@ const bodyParser = require('body-parser')
 const methodOverride = require('method-override')
 const session = require('express-session')
 const passport = require('passport')
+const flash = require('connect-flash')
 
 // const values
 const app = express()
@@ -30,6 +31,9 @@ app.set('view engine', 'handlebars')
 app.use(bodyParser.urlencoded({ extended: true }))
 app.use(methodOverride('_method'))
 
+//使用 connect-flash
+app.use(flash())
+
 // set express-session
 app.use(session({
   secret: 'hotcat',
@@ -41,8 +45,15 @@ app.use(passport.session())
 
 // 使用 Passport - 要在「routes」前面
 require('./config/passport')(passport)
+
+//建立 local variables
 app.use((req, res, next) => {
   res.locals.user = req.user
+  //辨識使用者是否已經登入的變數，讓 view 可以使用
+  res.locals.isAuthenticated = req.isAuthenticated()
+  //兩個 flash message 變數
+  res.locals.success_msg = req.flash('success_msg')
+  res.locals.warning_msg = req.flash('warning_msg')
   next()
 })
 
