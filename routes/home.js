@@ -14,14 +14,19 @@ router.get('/', authenticated, (req, res) => {
   User.findByPk(req.user.id)
     .then(user => {
       if (!user) throw new Error("user not found")
-
       return Record.findAll({
         raw: true,
         nest: true,
         where: { UserId: req.user.id }
       })
     })
-    .then((records) => { return res.render('index', { records: records }) })
+    .then((records) => {
+      let totalAmount = 0
+      for (i = 0; i < records.length; i++) {
+        totalAmount += records[i].amount
+      }
+      return res.render('index', { records: records, totalAmount })
+    })
     .catch((error) => { return res.status(422).json(error) })
 
 })
