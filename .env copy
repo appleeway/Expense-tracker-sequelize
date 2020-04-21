@@ -1,0 +1,5 @@
+// .env
+
+FACEBOOK_ID=632690677574805
+FACEBOOK_SECRET=65c778116f340d2298df3ee68bd1c371
+FACEBOOK_CALLBACK=http://localhost:3000/auth/facebook/callback
