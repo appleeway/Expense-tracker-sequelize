@@ -2,8 +2,8 @@
 <div class="mt-5">
   <div class="row">
     <div class="col-md-6 mx-auto text-center">
+      {{> messages}}
       <h4>New Expense</h4>
-
       {{!-- 依不同頁面執行不同動作 --}}
       {{#ifEquals action '修改'}}
       <form action="/records/{{{record.id}}}?_method=PUT" method="POST">
@@ -27,8 +27,8 @@
           <div class="form-group row">
             <label for="amount" class="col-sm-2 col-form-label">Amount</label>
             <div class="col-sm-10">
-              <input type="text" class="form-control" id="amount" name="amount" placeholder="" value="{{record.amount}}"
-                required>
+              <input type="number" class="form-control" id="amount" name="amount" placeholder=""
+                value="{{record.amount}}" required>
             </div>
           </div>
           <fieldset class="form-group">
@@ -36,36 +36,36 @@
               <legend class="col-form-label col-sm-2 pt-0">Category</legend>
               <div class="col-sm-10 text-left">
                 <div class="form-check">
-                  <input class="form-check-input" type="radio" name="category" id="gridRadios1" value="Housing"
-                    {{#ifEquals record.category "Housing"}} checked{{/ifEquals}}>
+                  <input class="form-check-input" type="radio" name="CategoryId" id="gridRadios1" value=1
+                    {{#ifEquals record.CategoryId "1"}} checked{{/ifEquals}}>
                   <label class="form-check-label" for="gridRadios1">
                     Housing
                   </label>
                 </div>
                 <div class="form-check">
-                  <input class="form-check-input" type="radio" name="category" id="gridRadios2" value="Transportation"
-                    {{#ifEquals record.category "Transportation"}} checked{{/ifEquals}}>
+                  <input class="form-check-input" type="radio" name="CategoryId" id="gridRadios2" value=2
+                    {{#ifEquals record.CategoryId "2"}} checked{{/ifEquals}}>
                   <label class="form-check-label" for="gridRadios2">
                     Transportation
                   </label>
                 </div>
                 <div class="form-check disabled">
-                  <input class="form-check-input" type="radio" name="category" id="gridRadios3" value="Entertainment"
-                    {{#ifEquals record.category "Entertainment"}} checked{{/ifEquals}}>
+                  <input class="form-check-input" type="radio" name="CategoryId" id="gridRadios3" value=3
+                    {{#ifEquals record.CategoryId "3"}} checked{{/ifEquals}}>
                   <label class="form-check-label" for="gridRadios3">
                     Entertainment
                   </label>
                 </div>
                 <div class="form-check disabled">
-                  <input class="form-check-input" type="radio" name="category" id="gridRadios4" value="Food"
-                    {{#ifEquals record.category "Food"}} checked{{/ifEquals}}>
+                  <input class="form-check-input" type="radio" name="CategoryId" id="gridRadios4" value=4
+                    {{#ifEquals record.CategoryId "4"}} checked{{/ifEquals}}>
                   <label class="form-check-label" for="gridRadios4">
                     Food
                   </label>
                 </div>
                 <div class="form-check disabled">
-                  <input class="form-check-input" type="radio" name="category" id="gridRadios5" value="Others"
-                    {{#ifEquals record.category "Others"}} checked{{/ifEquals}}>
+                  <input class="form-check-input" type="radio" name="CategoryId" id="gridRadios5" value=5
+                    {{#ifEquals record.CategoryId "5"}} checked{{/ifEquals}}>
                   <label class="form-check-label" for="gridRadios5">
                     Others
                   </label>

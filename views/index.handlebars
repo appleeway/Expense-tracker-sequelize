@@ -56,31 +56,31 @@
         {{#each records}}
         <div class="list-group-item {{#ifEven this.id}}list-group-item-secondary{{/ifEven}} ">
           <div class="row ">
-            {{#ifEquals this.category 'Housing'}}
+            {{#ifEquals this.CategoryId '1'}}
             <div class="d-inline-block col-1 my-auto ml-3" style="font-size: 35px">
               <i class="fas fa-home"></i>
             </div>
             {{/ifEquals}}
 
-            {{#ifEquals this.category 'Transportation'}}
+            {{#ifEquals this.CategoryId '2'}}
             <div class="d-inline-block col-1 my-auto ml-3" style="font-size: 35px">
               <i class="fas fa-car"></i>
             </div>
             {{/ifEquals}}
 
-            {{#ifEquals this.category 'Entertainment'}}
+            {{#ifEquals this.CategoryId '3'}}
             <div class="d-inline-block col-1 my-auto ml-3" style="font-size: 35px">
               <i class="fas fa-gamepad"></i>
             </div>
             {{/ifEquals}}
 
-            {{#ifEquals this.category 'Food'}}
+            {{#ifEquals this.CategoryId '4'}}
             <div class="d-inline-block col-1 my-auto ml-3" style="font-size: 35px">
               <i class="fas fa-utensils"></i>
             </div>
             {{/ifEquals}}
 
-            {{#ifEquals this.category 'Others'}}
+            {{#ifEquals this.CategoryId '5'}}
             <div class="d-inline-block col-1 my-auto ml-3" style="font-size: 35px">
               <i class="fas fa-align-left"></i>
             </div>

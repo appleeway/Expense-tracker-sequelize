@@ -23,16 +23,32 @@ router.get('/new', authenticated, (req, res) => {
 
 //新增一筆 record
 router.post('/new', authenticated, (req, res) => {
-  const { name, date, amount, category } = req.body
-  Record.create({
-    name,
-    date,
-    amount,
-    category,
-    UserId: req.user.id
-  })
-    .then((record) => { return res.redirect('/') })
-    .catch((error) => { return res.status(422).json(error) })
+  const { name, date, amount, CategoryId } = req.body
+
+  let errors = []
+
+  if (!name || !date || !amount || !CategoryId) {
+    errors.push({ message: '所有欄位都是必填' })
+  }
+
+  if (errors.length > 0) {
+    let record = {}
+    record.name = name
+    record.date = date
+    record.amount = amount
+    record.CategoryId = CategoryId
+    res.render('newedit', { errors, record })
+  } else {
+    Record.create({
+      name,
+      date,
+      amount,
+      CategoryId,
+      UserId: req.user.id
+    })
+      .then((record) => { return res.redirect('/') })
+      .catch((error) => { return res.status(422).json(error) })
+  }
 })
 
 //編輯一筆 record 頁面
@@ -47,12 +63,15 @@ router.get('/:id/edit', authenticated, (req, res) => {
         }
       })
     })
-    .then((record) => { return res.render('newedit', { record: record.get(), action: '修改' }) })
+    .then((record) => {
+      return res.render('newedit', { record: record.get(), action: '修改' })
+    })
 })
 
 //編輯一筆 record
 router.put('/:id', authenticated, (req, res) => {
-  const { name, date, amount, category } = req.body
+  const { name, date, amount, CategoryId } = req.body
+  let errors = []
   Record.findOne({
     where: {
       Id: req.params.id,
@@ -63,11 +82,19 @@ router.put('/:id', authenticated, (req, res) => {
       record.name = name
       record.date = date
       record.amount = amount
-      record.category = category
+      record.CategoryId = CategoryId
 
-      return record.save()
+      if (!name || !date || !amount || !CategoryId) {
+        errors.push({ message: '所有欄位都是必填' })
+      }
+
+      if (errors.length > 0) {
+        res.render('newedit', { errors, record: record.get(), action: '修改' })
+      } else {
+        record.save()
+        res.redirect('/')
+      }
     })
-    .then((record) => { return res.redirect('/') })
     .catch((error) => { return res.status(422).json(error) })
 })
 
