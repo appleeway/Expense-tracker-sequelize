@@ -14,10 +14,10 @@
                 Month {{#if month}} : {{month}}{{/if}}
               </button>
               <div class="dropdown-menu" aria-labelledby="dropdownMonth">
-                <a class="dropdown-item" href="/{{#if category}}?category={{category}}{{/if}}">All</a>
+                <a class="dropdown-item" href="/{{#if CategoryId}}?CategoryId={{CategoryId}}{{/if}}">All</a>
                 {{#each months}}
                 <a class="dropdown-item"
-                  href="/?month={{this}}{{#if ../category}}&category={{../category}}{{/if}}">{{this}}</a>
+                  href="/?month={{this}}{{#if ../CategoryId}}&CategoryId={{../CategoryId}}{{/if}}">{{this}}</a>
                 {{/each}}
               </div>
             </div>
@@ -27,19 +27,24 @@
             <div class="dropdown">
               <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownCategory"
                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                Category {{#if category}} : {{category}}{{/if}}
+                Category
+                {{#ifEquals CategoryId 1}} : Housing{{/ifEquals}}
+                {{#ifEquals CategoryId 2}} : Transportation{{/ifEquals}}
+                {{#ifEquals CategoryId 3}} : Entertainment{{/ifEquals}}
+                {{#ifEquals CategoryId 4}} : Food{{/ifEquals}}
+                {{#ifEquals CategoryId 5}} : Others{{/ifEquals}}
               </button>
               <div class="dropdown-menu" aria-labelledby="dropdownCategory">
                 <a class="dropdown-item" href="/{{#if month}}?month={{month}}{{/if}}">All</a>
-                <a class="dropdown-item" href="/?{{#if month}}month={{month}}&{{/if}}category=Housing"><i
+                <a class="dropdown-item" href="/?{{#if month}}month={{month}}&{{/if}}CategoryId=1"><i
                     class="fas fa-home mr-2"></i>Housing</a>
-                <a class="dropdown-item" href="/?{{#if month}}month={{month}}&{{/if}}category=Transportation"><i
+                <a class="dropdown-item" href="/?{{#if month}}month={{month}}&{{/if}}CategoryId=2"><i
                     class="fas fa-car mr-2"></i>Transportation</a>
-                <a class="dropdown-item" href="/?{{#if month}}month={{month}}&{{/if}}category=Entertainment"><i
+                <a class="dropdown-item" href="/?{{#if month}}month={{month}}&{{/if}}CategoryId=3"><i
                     class="fas fa-gamepad mr-2"></i>Entertainment</a>
-                <a class="dropdown-item" href="/?{{#if month}}month={{month}}&{{/if}}category=Food"><i
+                <a class="dropdown-item" href="/?{{#if month}}month={{month}}&{{/if}}CategoryId=4"><i
                     class="fas fa-utensils mr-2"></i>Food</a>
-                <a class="dropdown-item" href="/?{{#if month}}month={{month}}&{{/if}}category=Others"><i
+                <a class="dropdown-item" href="/?{{#if month}}month={{month}}&{{/if}}CategoryId=5"><i
                     class="fas fa-align-left mr-2"></i>Others</a>
               </div>
             </div>
